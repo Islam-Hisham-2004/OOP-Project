@@ -32,10 +32,6 @@ public class Reply {
         return time;
     }
 
-    @Override
-    public String toString() {
-        return "Reply{" + "replyId=" + replyId + ", userName=" + userName + ", content=" + content + ", time=" + time + '}';
-    }
     
     
 

@@ -44,10 +44,6 @@ public class comment {
         replies.add(reply);
     }
 
-    @Override
-    public String toString() {
-        return "comment{" + "commentId=" + commentId + ", userName=" + userName + ", content=" + content + ", time=" + time + ", replies=" + replies + '}';
-    }
     
      
     
