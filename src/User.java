@@ -33,12 +33,12 @@ public class User {
         this.followedPages = new ArrayList<>();
     }
 
-    public String getFisrtname() {
+    public String getFirstname() {
         return Firstname;
     }
 
-    public void setFisrtname(String Fisrtname) {
-        this.Fisrtname = Fisrtname;
+    public void setFirstname(String Firstname) {
+        this.Firstname = Firstname;
     }
 
     public String getLastname() {
