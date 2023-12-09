@@ -4,8 +4,9 @@ import java.util.Scanner;
 
 public class Page {
 
-    public String pageName;
-    private int pageID = 0;
+    private String pageName;
+    private User admin;
+    private static int pageID = 0;
     private List<User> followers;
     private List<Post> posts;
     public String about;
@@ -36,7 +37,7 @@ public class Page {
                 throw new Exception("User cannot be null.");
             }
             followers.add(user);
-            System.out.println(user.getFisrtname() + user.getLastname() + " is now following Page ID: " + pageID);
+            System.out.println(user.getFirstname() + user.getLastname() + " is now following Page ID: " + pageID);
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
         }
@@ -49,7 +50,7 @@ public class Page {
         System.out.println("Followers total number: " + followers.size());
         System.out.println("Followers:");
         for (User follower : followers) {
-            System.out.println(follower.getFisrtname() + follower.getLastname());
+            System.out.println(follower.getFirstname() + follower.getLastname());
         }
     }
 
@@ -69,14 +70,33 @@ public class Page {
             System.err.println("Error: " + e.getMessage());
         }
     }
+    public static Page createPage() {
+        try {
+
+            Page newPage = new Page();
+            newPage.setPageName();
+            newPage.setAbout();
+            if ( newPage.about == null || newPage.about.isEmpty()){
+                throw new Exception("About cannot be null or empty.");
+            }
+            if (newPage.about == null || newPage.about.isEmpty()) {
+                throw new Exception("About cannot be null or empty.");
+            }
+            System.out.println("Page created successfully! Page ID: " + pageID);
+            System.out.println("Page Name : " + newPage.pageName);
+            return newPage;
+        } catch (Exception e) {
+            System.err.println("Error creating page: " + e.getMessage());
+            return null;
+        }
+    }
 
 
-//
-//    public void displayPosts() {
-//        for (Post current_post : posts) {
-//            System.out.println(current_post.getContent());
-//        }
-//    }
+    public void displayPosts() {
+        for (Post current_post : posts) {
+            System.out.println(current_post.toString());
+        }
+    }
 
     /**
      * manage page settings
@@ -134,5 +154,9 @@ public class Page {
 
     public void setPageSettings(PageSettings pageSettings) {
         this.pageSettings = pageSettings;
+    }
+
+    public String getPageName() {
+        return pageName;
     }
 }

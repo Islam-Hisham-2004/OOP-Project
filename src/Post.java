@@ -1,6 +1,4 @@
-
-
-import java.util. *;
+import java.util.*;
 
 public class Post {
     private static int nextID = 1;
@@ -25,17 +23,19 @@ public class Post {
         this.likers = new ArrayList<>();
     }
 
-    public int getPostID(){
+    public int getPostID() {
         return postID;
     }
-    public String getContent(){
+
+    public String getContent() {
         return content;
     }
-    public String getPrivacyOption(){
+
+    public String getPrivacyOption() {
         return privacyOption;
     }
 
-    public List<Comment> getComments(){
+    public List<Comment> getComments() {
         return comments;
     }
 
@@ -47,19 +47,22 @@ public class Post {
         return likers;
     }
 
-    public void addComment(Comment comment){
+    public void addComment(Comment comment) {
 
         if (comment == null) {
             throw new IllegalArgumentException("Comment cannot be null");
-        }comments.add(comment);
+        }
+        comments.add(comment);
     }
-    public void tagUser(String user){
+
+    public void tagUser(String user) {
         if (user == null || user.isEmpty()) {
             throw new IllegalArgumentException("User to tag cannot be null or empty");
         }
         taggedUsers.add(user);
     }
-    public void likePost(String user){
+
+    public void likePost(String user) {
         if (user == null || user.isEmpty()) {
             throw new IllegalArgumentException("User liking the post cannot be null or empty");
         }
