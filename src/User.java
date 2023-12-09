@@ -14,6 +14,7 @@ public class User {
     // private ArrayList<String> ListOfFriends = new ArrayList<String>();
     List<User> ListOfFriends;
     private ArrayList followedPages= new ArrayList<>();
+    private User[] friends;
 
 
     public User(String Firstname,String Lastname, String email, String username, String password, String Confirmpassword )
