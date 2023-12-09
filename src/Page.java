@@ -18,7 +18,7 @@ public class Page {
      * Constructor
      * initialize the pageID
      * initialize
-     * @param
+     *
      */
     public Page() {
         pageID++;
@@ -50,9 +50,8 @@ public class Page {
     /**
      * show followers and thier number
      *
-     * @param user
      */
-    public void showFollowers(User user) {
+    public void showFollowers() {
         System.out.println("Followers total number : " + followers.size());
         System.out.println("Followers:");
         for (User follower : myPage.followers) {
