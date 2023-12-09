@@ -38,7 +38,7 @@ public class User {
     }
 
     public void setFisrtname(String Fisrtname) {
-        Fisrtname = Fisrtname;
+        this.Fisrtname = Fisrtname;
     }
 
     public String getLastname() {
@@ -46,7 +46,7 @@ public class User {
     }
 
     public void setLastname(String Lastname) {
-        Lastname = Lastname;
+        this.Lastname = Lastname;
     }
 
     public String getEmail() {
@@ -77,7 +77,7 @@ public class User {
     }
 
     public void setConfirmpassword(String Confirmpassword) {
-        Confirmpassword = Confirmpassword;
+        this.Confirmpassword = Confirmpassword;
     }
 
     public String getProfilePictureUrl() {
