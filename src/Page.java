@@ -8,7 +8,7 @@ public class Page {
     private static int pageID = 0;
     private List<User> followers;
     private List<Post> posts;
-    private String about;
+    public String about;
     private PageSettings pageSettings;
 
 
@@ -29,38 +29,14 @@ public class Page {
         pageSettings = new PageSettings();
     }
 
-    /**
-     * creating a page
-     *
-     * @return newPage
-     */
-    public static Page createPage() {
-        try {
 
-            Page newPage = new Page();
-            newPage.setPageName();
-            newPage.setAbout();
-            if ( PageName == null || PageName.isEmpty()){
-                throw new Exception("About cannot be null or empty.");
-            }
-            if (newPage.about == null || newPage.about.isEmpty()) {
-                throw new Exception("About cannot be null or empty.");
-            }
-            System.out.println("Page created successfully! Page ID: " + pageID);
-            System.out.println("Page Name : " + PageName);
-            return newPage;
-        } catch (Exception e) {
-            System.err.println("Error creating page: " + e.getMessage());
-            return null;
-        }
-    }
 
     /**
-     * follow a page
+     * add follower a page
      *
      * @param user
      */
-    public void followPage(User user) {
+    public void addFollower(User user) {
         try {
             if (user == null) {
                 throw new Exception("User cannot be null.");
@@ -71,6 +47,19 @@ public class Page {
             System.err.println("Error : " + e.getMessage());
         }
     }
+    /**
+     * show followers and thier number
+     *
+     * @param user
+     */
+    public void showFollowers(User user) {
+        System.out.println("Followers total number : " + followers.size());
+        System.out.println("Followers:");
+        for (User follower : myPage.followers) {
+            System.out.println(follower.getName());
+        }
+    }
+
 
     /**
      * post on a page
