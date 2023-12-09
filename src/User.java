@@ -2,7 +2,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class User {
+public abstract class User {
+    private static int userID = 0;
     private String Firstname;
     private String Lastname;
     private String email;
@@ -17,8 +18,9 @@ public class User {
     private User[] friends;
 
 
-    public User(String Firstname,String Lastname, String email, String username, String password, String Confirmpassword )
+    public User(int userID, String Firstname,String Lastname, String email, String username, String password, String Confirmpassword )
     {
+        userID ++;
         this.Firstname = Firstname;
         this.Lastname = Lastname;
         this.email = email;
@@ -33,12 +35,20 @@ public class User {
         this.followedPages = new ArrayList<>();
     }
 
-    public String getFisrtname() {
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public String getFirstname() {
         return Firstname;
     }
 
-    public void setFisrtname(String Fisrtname) {
-        this.Fisrtname = Fisrtname;
+    public void setFirstname(String Firstname) {
+        this.Firstname = Firstname;
     }
 
     public String getLastname() {
@@ -118,7 +128,7 @@ public class User {
         if (username == null || password == null || Firstname == null || email == null || profilePictureUrl == null) {
             throw new IllegalArgumentException("All parameters are required");
         }
-        User user = new User(username, password, Firstname, Lastname, email, profilePictureUrl);
+        User user = new User(userID, username, password, Firstname, Lastname, email, profilePictureUrl);
         User user1 = user;
         return user1;
 
@@ -134,6 +144,7 @@ public class User {
         return this.username.equals(username) && this.password.equals(password);
     }
     public Post writePost(String title, String content) {
+
         if (title == null || title.isEmpty()) {
             throw new IllegalArgumentException("Title cannot be null or empty");
         }
@@ -180,26 +191,7 @@ public class User {
         }
     }
 
-    public static Page createPage() {
-        try {
-
-            Page newPage = new Page();
-            newPage.setPageName();
-            newPage.setAbout();
-            if ( PageName == null || PageName.isEmpty()){
-                throw new Exception("About cannot be null or empty.");
-            }
-            if (newPage.about == null || newPage.about.isEmpty()) {
-                throw new Exception("About cannot be null or empty.");
-            }
-            System.out.println("Page created successfully! Page ID: " + pageID);
-            System.out.println("Page Name : " + PageName);
-            return newPage;
-        } catch (Exception e) {
-            System.err.println("Error creating page: " + e.getMessage());
-            return null;
-        }
-    }
+     public abstract Page createPage();
 
     public void searchAddFriends(User friend) {
         if (ListOfFriends.contains(friend) || friend.equals(this)) {
