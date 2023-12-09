@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Page {
 
-    private String pageName;
+    public String pageName;
     private int pageID = 0;
     private List<User> followers;
     private List<Post> posts;
@@ -49,7 +49,7 @@ public class Page {
         System.out.println("Followers total number: " + followers.size());
         System.out.println("Followers:");
         for (User follower : followers) {
-            System.out.println(follower.getName());
+            System.out.println(follower.getFisrtname() + follower.getLastname());
         }
     }
 
