@@ -4,32 +4,26 @@ import java.util.Scanner;
 
 public class Page {
 
-    private static String PageName;
-    private static int pageID = 0;
+    private String pageName;
+    private int pageID = 0;
     private List<User> followers;
     private List<Post> posts;
     public String about;
     private PageSettings pageSettings;
 
-
     Scanner input = new Scanner(System.in);
 
     /**
-     * Constructor
-     * initialize the pageID
-     * initialize
-     *
+     * Constructor initialize the pageID initialize
      */
     public Page() {
         pageID++;
-        PageName = "";
+        pageName = "";
         followers = new ArrayList<>();
         posts = new ArrayList<>();
         about = "";
         pageSettings = new PageSettings();
     }
-
-
 
     /**
      * add follower a page
@@ -41,24 +35,23 @@ public class Page {
             if (user == null) {
                 throw new Exception("User cannot be null.");
             }
-        followers.add(user);
-        System.out.println(user.getName() + " is now following Page ID: " + pageID);
-     }catch (Exception e){
-            System.err.println("Error : " + e.getMessage());
-        }
-    }
-    /**
-     * show followers and thier number
-     *
-     */
-    public void showFollowers() {
-        System.out.println("Followers total number : " + followers.size());
-        System.out.println("Followers:");
-        for (User follower : myPage.followers) {
-            System.out.println(follower.getName());
+            followers.add(user);
+            System.out.println(user.getFisrtname() + user.getLastname() + " is now following Page ID: " + pageID);
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
         }
     }
 
+    /**
+     * show followers and their number
+     */
+    public void showFollowers() {
+        System.out.println("Followers total number: " + followers.size());
+        System.out.println("Followers:");
+        for (User follower : followers) {
+            System.out.println(follower.getName());
+        }
+    }
 
     /**
      * post on a page
@@ -70,14 +63,23 @@ public class Page {
             if (post == null) {
                 throw new Exception("Post cannot be null.");
             }
-        posts.add(post);
-        System.out.println("Post added to Page ID: " + pageID);
-    }catch (Exception e){
-            System.err.println("Error : " + e.getMessage());
+            posts.add(post);
+            System.out.println("Post added to Page ID: " + pageID);
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
         }
     }
 
-    /**  manage page settings
+
+//
+//    public void displayPosts() {
+//        for (Post current_post : posts) {
+//            System.out.println(current_post.getContent());
+//        }
+//    }
+
+    /**
+     * manage page settings
      *
      * @param allowComments
      * @param allowTags
@@ -90,13 +92,13 @@ public class Page {
         System.out.println("Page settings updated for Page ID: " + pageID);
     }
 
-    /**  Display Page Settings
-     *
+    /**
+     * Display Page Settings
      */
     public void displayPageSettings() {
         System.out.println("Allow Comments -> " + pageSettings.isAllowComments());
-        System.out.println("Allow Public Posts -> " +pageSettings.isAllowPublicPosts());
-        System.out.println("Allow Tags -> " +pageSettings.isAllowTags());
+        System.out.println("Allow Public Posts -> " + pageSettings.isAllowPublicPosts());
+        System.out.println("Allow Tags -> " + pageSettings.isAllowTags());
     }
 
     // Getter and setter methods
@@ -117,19 +119,20 @@ public class Page {
     }
 
     public void setAbout() {
-        System.out.print("Write the Page's about : ");
-        this.about = input.next();
-    }
-    public void setPageName(){
-        System.out.print("Write the Page's Name : ");
-        this.PageName = input.next();
+        System.out.print("Write the Page's about: ");
+        this.about = input.nextLine();
     }
 
-      public PageSettings getPageSettings() {
-          return pageSettings;
-      }
+    public void setPageName() {
+        System.out.print("Write the Page's Name: ");
+        this.pageName = input.nextLine();
+    }
 
-     public void setPageSettings(PageSettings pageSettings) {
-         this.pageSettings = pageSettings;
-     }
+    public PageSettings getPageSettings() {
+        return pageSettings;
+    }
+
+    public void setPageSettings(PageSettings pageSettings) {
+        this.pageSettings = pageSettings;
+    }
 }
