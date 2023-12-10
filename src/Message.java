@@ -37,7 +37,7 @@ public class Message {
     }
     @Override
     public String toString() {
-        return id + " - " + sender.getName() + ": " + content + " - Sent at: " + msgtime;
+        return id + " - " + sender.getUsername() + ": " + content + " - Sent at: " + msgtime;
     }
 }
 
