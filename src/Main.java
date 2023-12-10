@@ -1,77 +1,109 @@
+import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.io.*;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 public class Main {
-    public static void main(String[]args){
-            List<Conversation> Conversations= new ArrayList<>();
-            Scanner input=new Scanner(System.in);
 
-            while(true){
-                System.out.println("choose an option");
-                System.out.println("1.Create a new conversation");
-                System.out.println("2.Write message in existing conversation");
-                System.out.println("3.EXIT");
+    Scanner input = new Scanner(System.in);
 
-                int choice = Integer.parseInt(input.nextLine());
+    public static void main(String[] args) {
+    ArrayList<User> users=new ArrayList<>();
+    Scanner input = new Scanner(System.in);
+    User loggeduser =new User();
+        while (true) {
+            System.out.println("Choose an option");
+            System.out.println("1. Create Account");
+            System.out.println("2. Login to an existing account");
+            System.out.println("3.exit");
 
-                switch (choice){
-                    case 1: createconversation(input,Conversations);
-                        break;
-                    case 2: Sendmessage(input,Conversations);
-                        break;
-                    case 3:System.out.println("Exiting the program.");
-                        System.exit(0);
+            int choice = input.nextInt();
+            switch (choice) {
+                case 1:
+                    User.register(users);
+                 break;
+                case 2:
+                    loggeduser= new User(User.login(users));
+                    loop: while(true){
+                    UserInteractions.display();
+                        int option = input.nextInt();
+                        switch (option) {
+                            case 1:
 
-                        break;
-                    default:
-                        System.out.println("Invalid choice. Please choose again.");
-                        break;
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+
+                                break;
+                            case 4:
+                                UserInteractions.createPage(loggeduser.pages);
+                                break;
+                            case 5:
+                                UserInteractions.createConversation(loggeduser.conversations);
+                                break;
+                            case 6:
+                                UserInteractions.sendMessage(loggeduser.conversations);
+                                break;
+                            case 7:
+
+                                break;
+                            case 8:
+                                break;
+                            case 9:
+
+                                break;
+                            case 10:
+                                break loop;
+                        }
+                    }
+                    break;
+                case 3:
+                    System.out.println("exiting program ");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice. Please choose again.");
+                    break;
+            }
+        }
+    }
+
+
+
+
+   /*         private void loadSystemDetails () {
+                try (ObjectInputStream usersStream = new ObjectInputStream(new FileInputStream(USERS_FILE));
+                     ObjectInputStream postsStream = new ObjectInputStream(new FileInputStream(POSTS_FILE));
+                     ObjectInputStream conversationsStream = new ObjectInputStream(new FileInputStream(CONVERSATIONS_FILE))) {
+                    users = (List<User>) usersStream.readObject();
+                    posts = (List<Post>) postsStream.readObject();
+                    conversations = (List<Conversation>) conversationsStream.readObject();
+                } catch (FileNotFoundException e) {
+                    System.out.println("Files not found. Creating new system.");
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
                 }
+            }
 
-
+            private void saveSystemDetails () {
+                try (ObjectOutputStream usersStream = new ObjectOutputStream(new FileOutputStream(USERS_FILE));
+                     ObjectOutputStream postsStream = new ObjectOutputStream(new FileOutputStream(POSTS_FILE));
+                     ObjectOutputStream conversationsStream = new ObjectOutputStream(new FileOutputStream(CONVERSATIONS_FILE))) {
+                    usersStream.writeObject(users);
+                    postsStream.writeObject(posts);
+                    conversationsStream.writeObject(conversations);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-
-    }
-    public static void createconversation(Scanner input, List<Conversation>Conversations){
-        System.out.println("Enter the name of the new conversation:");
-        String Conv_Name = input.nextLine();
-
-        System.out.println("Enter the participants name each name separated by comma");
-        String participantsInput=input.nextLine();
-        String[]part_Names=participantsInput.split(",");
-
-        List<User>Participants=new ArrayList<>();
-        for (String participantName : part_Names) {
-            Participants.add(new User(participantName));
-        }
-        Conversation newConversation = new Conversation(Conv_Name,Participants);
-        Conversations.add(newConversation);
-
-        System.out.println("New conversation created: " + newConversation.getConvname());
-    }
-  public static void Sendmessage(Scanner input , List<Conversation>conversations){
-      if (conversations.isEmpty()) {
-          System.out.println("No conversations available,Please Create a new conversation first.");
-          return;
-      }
-      System.out.println("Choose conv to write ur msg in");
-      for (int i=0;i<conversations.size();i++){
-          System.out.println((i+1)+". "+conversations.get(i).getConvname());
-      }
-      int selectedConvIndex = Integer.parseInt(input.nextLine()) - 1;
-  if (selectedConvIndex>=0&&selectedConvIndex<conversations.size()){
-      Conversation selectedConv = conversations.get(selectedConvIndex);
-      System.out.println("Enter the name of sender");
-      String name= input.next();
-      User sender=new User(name);
-      System.out.println("Enter ur msg");
-      String Msg_Cont=input.nextLine();
-      selectedConv.sendMessage(sender, Msg_Cont);
-  } else {
-      System.out.println("Invalid conversation index.");
-  }
-
-
-  }
-  }
+    }*/
+}

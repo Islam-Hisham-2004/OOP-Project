@@ -1,11 +1,12 @@
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Conversation {
+public class Conversation implements Displayable, Serializable {
     private String convname;
     private List<Message> messages;
-    private List<User> participants;
+    private ArrayList<User> participants=new ArrayList<>();
     private LocalDateTime creationTime;
 
 
@@ -35,12 +36,20 @@ public class Conversation {
         Message newMessage = new Message(sender, message);
         this.messages.add(newMessage);
     }
-    public String toString() {
-        return "Conversation{" +
+
+    public void Conv_display() {
+        System.out.println("Conversation{" +
                 "name='" + convname + '\'' +
                 ", participants=" + participants +
                 ", messages=" + messages +
-                '}';
+                '}');
+    }
+
+    public void displayMessages() {
+        System.out.println("Messages in " + convname + ":");
+        for (Message message : messages) {
+            message.Message_display();
+        }
     }
 }
 

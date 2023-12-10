@@ -1,103 +1,107 @@
 import java.util.*;
-
 public class Post {
     private static int nextID = 1;
     Scanner input = new Scanner(System.in);
     private int postID;
+    private User creator;
     private String content;
-    private String privacyOption;
+    private List<String> privacyOption;
+    private int privacyChoice;
     private List<Comment> comments;
-    private List<String> taggedUsers;
-    private List<String> likers;
+    private List<User> taggedUsers;
+    private List<User> likers;
 
 
-    public Post(String content, String privacyOption) {
-        initializeNextID();
-        initializePost(content, privacyOption);
-    }
-    public void writeContent() {
-        System.out.print("Enter the content for your post: ");
-        content = input.nextLine();
-    }
-
-    // Function to allow the user to write privacy option for a new post
-    public void writePrivacyOption() {
-        System.out.print("Enter the privacy option for your post (Public or Friends only): ");
-        privacyOption = input.nextLine();
-        // You might want to add validation for the entered privacy option
-    }
-    // Constructor for creating posts without specifying content and privacy option
-    public Post() {
-        initializeNextID();
-        this.comments = new ArrayList<>();
-        this.taggedUsers = new ArrayList<>();
-        this.likers = new ArrayList<>();
-    }
-
-    private void initializeNextID() {
+    public Post(User creator, String content,int privacyChoice,List<User> taggedUsers) {
         this.postID = nextID++;
+        this.content = content;
+        this.creator = creator;
+        this.privacyOption = new ArrayList<>(Arrays.asList("Public", "Friends only"));
+        this.privacyChoice = privacyChoice;
+        this.comments = new ArrayList<>();
+        this.taggedUsers = taggedUsers;
+        this.likers = new ArrayList<>();
+
     }
 
-    private void initializePost(String content, String privacyOption) {
-        if (content == null || content.isEmpty() || privacyOption == null || privacyOption.isEmpty()) {
-            throw new IllegalArgumentException("Content and privacy option cannot be null or empty");
-        }
-        this.content = content;
-        this.privacyOption = privacyOption;
+    public Post(Scanner input) {
+
     }
 
     public int getPostID() {
         return postID;
     }
-
+    public int getPrivacyChoice() {
+        return privacyChoice;
+    }
     public String getContent() {
         return content;
     }
-
-    public String getPrivacyOption() {
-        return privacyOption;
+    public User getCreator() {
+        return creator;
     }
 
+    public List<String> getPrivacyOption() {
+        return privacyOption;
+    }
     public List<Comment> getComments() {
         return comments;
     }
-
-    public List<String> getTaggedUsers() {
+    public List<User> getTaggedUsers() {
         return taggedUsers;
     }
-
-    public List<String> getLikers() {
+    public List<User> getLikers() {
         return likers;
     }
 
+
+
+
     public void displayComments() {
         for (Comment current_comment : comments) {
-            System.out.println(current_comment.getContent());
+            System.out.println(current_comment.toString());
         }
     }
 
-    public void tagUser(String user) {
-        if (user == null || user.isEmpty()) {
-            throw new IllegalArgumentException("User to tag cannot be null or empty");
-        }
-        taggedUsers.add(user);
+    public List<User> addTaggedUser(User friend) {
+        taggedUsers.add(friend);
+return taggedUsers;
     }
 
-    public void likePost(String user) {
-        if (user == null || user.isEmpty()) {
-            throw new IllegalArgumentException("User liking the post cannot be null or empty");
+    public User chooseUser( ArrayList<User> friends){
+        for (int i = 0 ; i < friends.size() ; i++){
+            System.out.println(i+1 + "-" + friends.get(i).getUsername());
         }
-        likers.add(user);
+        System.out.println("Enter the number that match your choice: ");
+        int choice = input.nextInt();
+
+        while(choice>friends.size() || choice<0){
+            System.out.println("Invalid choice!");
+            System.out.println("Enter the number that match your choice: ");
+            choice = input.nextInt();
+        }
+
+        return friends.get(choice);
+
+    }
+
+    public void likePost(User loggedInUseruser , Post chosenPost) {
+
+
+        chosenPost.likers.add(loggedInUseruser);
     }
 
     public String toString() {
-        return "Post{" +
-                "postID=" + postID +
-                ", content='" + content + '\'' +
-                ", privacyOption='" + privacyOption + '\'' +
-                ", comments=" + comments +
-                ", taggedUsers=" + taggedUsers +
-                ", likers=" + likers +
-                '}';
-    }
+
+        return "Post{\ncontent: "
+                + content +
+                "\ncomments: "
+                + comments +
+                "\ntagged users: "
+                + taggedUsers +
+                "\nliked by: "
+                + likers +
+               "\n}";
+
+}
 }
