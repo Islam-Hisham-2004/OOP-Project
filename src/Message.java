@@ -12,7 +12,7 @@ public class Message {
 
     ///////////////message constructor//////////////////////
     public Message(User sender, String content) {
-        this.id = UUID.randomUUID();
+        id = UUID.randomUUID();
         this.sender = sender;
         this.content = content;
         this.msgtime=LocalDateTime.now();

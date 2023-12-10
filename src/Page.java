@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 
-public class Page {
+public class  Page {
 
     private String pageName;
-    private User admin;
-    private static int pageID = 0;
+    private UUID pageID;
     private List<User> followers;
     private List<Post> posts;
     public String about;
@@ -18,7 +18,7 @@ public class Page {
      * Constructor initialize the pageID initialize
      */
     public Page() {
-        pageID++;
+        pageID = UUID.randomUUID();
         pageName = "";
         followers = new ArrayList<>();
         posts = new ArrayList<>();
@@ -79,10 +79,10 @@ public class Page {
             if ( newPage.about == null || newPage.about.isEmpty()){
                 throw new Exception("About cannot be null or empty.");
             }
-            if (newPage.about == null || newPage.about.isEmpty()) {
+            if (newPage.pageName == null || newPage.pageName.isEmpty()) {
                 throw new Exception("About cannot be null or empty.");
             }
-            System.out.println("Page created successfully! Page ID: " + pageID);
+            System.out.println("Page created successfully!");
             System.out.println("Page Name : " + newPage.pageName);
             return newPage;
         } catch (Exception e) {
@@ -122,7 +122,9 @@ public class Page {
     }
 
     // Getter and setter methods
-    public int getPageID() {
+
+
+    public UUID getPageID() {
         return pageID;
     }
 
