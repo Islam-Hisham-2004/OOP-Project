@@ -59,10 +59,10 @@ public class  Page {
      *
      * @param post
      */
-    public void addPostOnPage(Post post) {
+    public void postOnPage(Post post) {
         try {
-            if (post == null || post.getContent().isEmpty()) {
-                throw new Exception("Post cannot be null or empty.");
+            if (post == null) {
+                throw new Exception("Post cannot be null.");
             }
             posts.add(post);
             System.out.println("Post added to Page ID: " + pageID);
@@ -70,6 +70,27 @@ public class  Page {
             System.err.println("Error: " + e.getMessage());
         }
     }
+    public static Page createPage() {
+        try {
+
+            Page newPage = new Page();
+            newPage.setPageName();
+            newPage.setAbout();
+            if ( newPage.about == null || newPage.about.isEmpty()){
+                throw new Exception("About cannot be null or empty.");
+            }
+            if (newPage.pageName == null || newPage.pageName.isEmpty()) {
+                throw new Exception("About cannot be null or empty.");
+            }
+            System.out.println("Page created successfully!");
+            System.out.println("Page Name : " + newPage.pageName);
+            return newPage;
+        } catch (Exception e) {
+            System.err.println("Error creating page: " + e.getMessage());
+            return null;
+        }
+    }
+
 
     public void displayPosts() {
         for (Post current_post : posts) {
