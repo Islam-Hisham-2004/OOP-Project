@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a5745c1-d40e-435c-aa98-0e97f47153c3" name="Changes" comment="finish page">
+    <list default="true" id="3a5745c1-d40e-435c-aa98-0e97f47153c3" name="Changes" comment="Test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Comment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Message.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Page.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Page.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Reply.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reply.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,15 +70,7 @@
       <option name="project" value="LOCAL" />
       <updated>1702143496723</updated>
     </task>
-    <task id="LOCAL-00003" summary="finish page">
-      <option name="closed" value="true" />
-      <created>1702151754229</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1702151754229</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -86,7 +78,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Test" />
-    <MESSAGE value="finish page" />
-    <option name="LAST_COMMIT_MESSAGE" value="finish page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test" />
   </component>
 </project>

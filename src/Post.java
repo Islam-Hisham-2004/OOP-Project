@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Post {
     private static int nextID = 1;
-
+    Scanner input = new Scanner(System.in);
     private int postID;
     private String content;
     private String privacyOption;
@@ -12,15 +12,38 @@ public class Post {
 
 
     public Post(String content, String privacyOption) {
-        if (content == null || content.isEmpty() || privacyOption == null || privacyOption.isEmpty()) {
-            throw new IllegalArgumentException("Content and privacy option cannot be null or empty");
-        }
-        this.postID = nextID++;
-        this.content = content;
-        this.privacyOption = privacyOption;
+        initializeNextID();
+        initializePost(content, privacyOption);
+    }
+    public void writeContent() {
+        System.out.print("Enter the content for your post: ");
+        content = input.nextLine();
+    }
+
+    // Function to allow the user to write privacy option for a new post
+    public void writePrivacyOption() {
+        System.out.print("Enter the privacy option for your post (Public or Friends only): ");
+        privacyOption = input.nextLine();
+        // You might want to add validation for the entered privacy option
+    }
+    // Constructor for creating posts without specifying content and privacy option
+    public Post() {
+        initializeNextID();
         this.comments = new ArrayList<>();
         this.taggedUsers = new ArrayList<>();
         this.likers = new ArrayList<>();
+    }
+
+    private void initializeNextID() {
+        this.postID = nextID++;
+    }
+
+    private void initializePost(String content, String privacyOption) {
+        if (content == null || content.isEmpty() || privacyOption == null || privacyOption.isEmpty()) {
+            throw new IllegalArgumentException("Content and privacy option cannot be null or empty");
+        }
+        this.content = content;
+        this.privacyOption = privacyOption;
     }
 
     public int getPostID() {
@@ -43,16 +66,14 @@ public class Post {
         return taggedUsers;
     }
 
-    public List<String> getlikers() {
+    public List<String> getLikers() {
         return likers;
     }
 
-    public void addComment(Comment comment) {
-
-        if (comment == null) {
-            throw new IllegalArgumentException("Comment cannot be null");
+    public void displayComments() {
+        for (Comment current_comment : comments) {
+            System.out.println(current_comment.getContent());
         }
-        comments.add(comment);
     }
 
     public void tagUser(String user) {
@@ -80,5 +101,3 @@ public class Post {
                 '}';
     }
 }
-
-

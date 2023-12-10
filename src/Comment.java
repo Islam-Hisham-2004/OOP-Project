@@ -1,15 +1,12 @@
-
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Comment {
-
     private int commentId;
     private User user;
-    private LocalDateTime time;
     private String content;
+    private LocalDateTime time;
     private List<Reply> replies;
 
     public Comment(int commentId, User user, String content) {
@@ -24,7 +21,7 @@ public class Comment {
         return commentId;
     }
 
-    public User getUser() {
+    public User getUserName() {
         return user;
     }
 
@@ -43,5 +40,14 @@ public class Comment {
     public void addReply(Reply reply) {
         replies.add(reply);
     }
+
+    @Override
+    public String toString() {
+        return "Comment{" + "commentId=" + commentId + ", user=" + user + ", content=" + content + ", time=" + time + ", replies=" + replies + '}';
+    }
+
+
+
+
 
 }
