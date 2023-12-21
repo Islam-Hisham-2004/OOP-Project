@@ -37,7 +37,7 @@ public class  Page {
                 throw new Exception("User cannot be null.");
             }
             followers.add(user);
-            System.out.println(user.getFirstname() + user.getLastname() + " is now following Page ID: " + pageID);
+            System.out.println(user.getUsername() + " is now following Page ID: " + pageID);
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
         }
@@ -50,7 +50,7 @@ public class  Page {
         System.out.println("Followers total number: " + followers.size());
         System.out.println("Followers:");
         for (User follower : followers) {
-            System.out.println(follower.getFirstname() + follower.getLastname());
+            System.out.println(follower.getUsername());
         }
     }
 
