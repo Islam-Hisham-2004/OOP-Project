@@ -6,7 +6,8 @@ import java.util.UUID;
 public class  Page {
 
     private String pageName;
-    private UUID pageID;
+    private int pageID = 0 ;
+    private static int nextPageID = 1 ;
     private List<User> followers;
     private List<Post> posts;
     public String about;
@@ -18,13 +19,14 @@ public class  Page {
      * Constructor initialize the pageID initialize
      */
     public Page() {
-        pageID = UUID.randomUUID();
+        pageID = nextPageID;
+        nextPageID++;
         pageName = "";
         followers = new ArrayList<>();
         posts = new ArrayList<>();
         about = "";
         pageSettings = new PageSettings();
-    }
+}
 
     /**
      * add follower a page
@@ -70,7 +72,7 @@ public class  Page {
             System.err.println("Error: " + e.getMessage());
         }
     }
-    public static Page createPage() {
+    /* public static Page createPage() {
         try {
 
             Page newPage = new Page();
@@ -89,7 +91,7 @@ public class  Page {
             System.err.println("Error creating page: " + e.getMessage());
             return null;
         }
-    }
+    }*/
 
 
     public void displayPosts() {
@@ -101,16 +103,34 @@ public class  Page {
     /**
      * manage page settings
      *
-     * @param allowComments
-     * @param allowTags
-     * @param allowPublicPosts
+     *
      */
-    public void managePageSettings(boolean allowComments, boolean allowTags, boolean allowPublicPosts) {
-        pageSettings.setAllowComments(allowComments);
-        pageSettings.setAllowTags(allowTags);
-        pageSettings.setAllowPublicPosts(allowPublicPosts);
-        System.out.println("Page settings updated for Page ID: " + pageID);
-    }
+    public void managePageSettings() {
+        System.out.println("enter 1 to allow and 0 to disallow :");
+        System.out.print("allow comments: ");
+       int c=input.nextInt();
+        if (c ==0 || c==1)
+        { pageSettings.setAllowComments(c);}
+        else
+            System.out.println("invalid choice it will be automatically set to allow");
+
+        System.out.print("allow tags: ");
+        c=input.nextInt();
+        if (c ==0 || c==1)
+        { pageSettings.setAllowTags(c);}
+        else
+            System.out.println("invalid choice it will be automatically set to allow");
+
+        System.out.print("allow public posts: ");
+        c=input.nextInt();
+        if (c ==0 || c==1)
+        { pageSettings.setAllowPublicPosts(c);}
+        else
+            System.out.println("invalid choice it will be automatically set to allow");
+
+
+        System.out.println("Page settings updated for Page : " + pageName);
+}
 
     /**
      * Display Page Settings
@@ -124,7 +144,7 @@ public class  Page {
     // Getter and setter methods
 
 
-    public UUID getPageID() {
+    public int getPageID() {
         return pageID;
     }
 

@@ -11,9 +11,6 @@ import java.text.SimpleDateFormat;
 
 import java.io.Serializable;
 
-enum Gender {
-    MALE, FEMALE
-}
 
 public class User implements AccountManagement {
     private int userID = 0;
@@ -26,12 +23,14 @@ public class User implements AccountManagement {
     private String confirmPassword;
     private String profilePictureUrl = " "; // Default value
     private Date birthdate;
-    private List<User> listOfFriends;
+    public ArrayList<User> listOfFriends;
     public ArrayList<Conversation> conversations=new ArrayList<>();
     public ArrayList<Page> pages=new ArrayList<>();
-    private Gender gender;
+    public ArrayList<Post> posts=new ArrayList<>();
+    public ArrayList<Page> followedpages=new ArrayList<>();
+    private String gender;
     private String Confirmpassword;
-    public  Gender parseGenderIgnoreCase(String input) {
+   /* public  Gender parseGenderIgnoreCase(String input) {
         // Convert the input to uppercase before using Gender.valueOf()
         try {
             return Gender.valueOf(input.toUpperCase());
@@ -39,7 +38,7 @@ public class User implements AccountManagement {
             // Handle the case where the input doesn't match any enum constant
             throw new IllegalArgumentException("Invalid gender input. Please enter 'MALE' or 'FEMALE'.");
         }
-    }
+    }*/
     public User(){}
     public User(User obj){
         this.userID=obj.userID;
@@ -55,7 +54,7 @@ public class User implements AccountManagement {
         this.username=username;
     }
     public User(String firstName, String lastName, String email, String username,
-                String password, String confirmPassword, Gender gender) {
+                String password, String confirmPassword, String gender,Date birthdate) {
         this.userID = nextUserID;
         nextUserID++;
         this.firstName = firstName;
@@ -65,6 +64,7 @@ public class User implements AccountManagement {
         this.password = password;
         this.confirmPassword = confirmPassword;
         this.gender = gender;
+        this.birthdate=birthdate;
     }
     Scanner input = new Scanner(System.in);
 
@@ -72,22 +72,16 @@ public class User implements AccountManagement {
     // Implementing methods from AccountManagement interface
 
 
-    public User createAccount(String Firstname, String Lastname, String username, String password, String confirmpassword, String email, Date birthdate ){
+    public  User createAccount(String Firstname, String Lastname, String username, String password, String confirmpassword, String email, Date birthdate,String gender ){
         if (isValidUsername(username) && isValidPassword(password, confirmpassword) &&
                isValidEmail(email) && isValidBirthdate(birthdate)) {
-            this.username = username;
-            this.password = password;
-            this.Confirmpassword = confirmpassword;
-
-            this.email = email;
-            this.birthdate = birthdate;
-
+         User user =new User( Firstname,  Lastname,  username,  password,  confirmpassword,  email, gender, birthdate);
+            return user;
         } else {
             throw new IllegalArgumentException("Invalid account details");
+
         }
 
-        //return user1;
-        return null;
     }
     private boolean isValidUsername(String username) {
         /* check for a minimum length requirement and check nullness */
@@ -170,7 +164,7 @@ public class User implements AccountManagement {
     }
     public static void register(ArrayList<User> users){
         Scanner input = new Scanner(System.in);
-        User user1=new User();
+
         System.out.println("Please enter your first name");
         String firstname = input.nextLine();
         System.out.println("Please enter your last name");
@@ -199,9 +193,9 @@ public class User implements AccountManagement {
         System.out.println("Renter the pass");
         String confpass = input.nextLine();
         System.out.println("Select your gender");
-        Gender gender = user1.parseGenderIgnoreCase(input.nextLine());
-        user1.createAccount(firstname,lastname,username,password,confpass,email,birthdate);
-        users.add(user1);
+        String gender =input.nextLine();
+
+
 
     }
 
@@ -273,19 +267,19 @@ public class User implements AccountManagement {
         this.birthdate = birthdate;
     }
 
-    public List<User> getListOfFriends() {
+   /* public List<User> getListOfFriends() {
         return listOfFriends;
-    }
+    }*/
 
-    public void setListOfFriends(List<User> listOfFriends) {
+ /*   public void setListOfFriends(List<User> listOfFriends) {
         this.listOfFriends = listOfFriends;
-    }
+    }*/
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 

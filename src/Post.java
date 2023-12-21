@@ -4,30 +4,45 @@ public class Post {
     Scanner input = new Scanner(System.in);
     private int postID;
     private User creator;
+
+    public void setContent() {
+        System.out.print("Enter the content for your post: ");
+        this.content = input.nextLine();
+    }
+
     private String content;
     private List<String> privacyOption;
+
+
+    public void setPrivacyChoice() {
+        System.out.println("Enter 1 to set your post public or 2 to set it friends only");
+        this.privacyChoice = input.nextInt();
+
+    }
+
     private int privacyChoice;
     private List<Comment> comments;
+
+    public void setTaggedUsers(ArrayList<User> friends) {
+
+        this.taggedUsers = addTaggedUser(chooseUser(friends));
+    }
+
     private List<User> taggedUsers;
     private List<User> likers;
 
 
-    public Post(User creator, String content,int privacyChoice,List<User> taggedUsers) {
-        this.postID = nextID++;
-        this.content = content;
-        this.creator = creator;
-        this.privacyOption = new ArrayList<>(Arrays.asList("Public", "Friends only"));
-        this.privacyChoice = privacyChoice;
-        this.comments = new ArrayList<>();
-        this.taggedUsers = taggedUsers;
-        this.likers = new ArrayList<>();
+    public Post() {
+        postID = nextID++;
+        content = content;
+        creator = creator;
+        privacyOption = new ArrayList<>(Arrays.asList("Public", "Friends only"));
+        privacyChoice = privacyChoice;
+        comments = new ArrayList<>();
+        taggedUsers = taggedUsers;
+        likers = new ArrayList<>();
 
     }
-
-    public Post(Scanner input) {
-
-    }
-
     public int getPostID() {
         return postID;
     }
@@ -54,9 +69,6 @@ public class Post {
         return likers;
     }
 
-
-
-
     public void displayComments() {
         for (Comment current_comment : comments) {
             System.out.println(current_comment.toString());
@@ -65,7 +77,7 @@ public class Post {
 
     public List<User> addTaggedUser(User friend) {
         taggedUsers.add(friend);
-return taggedUsers;
+        return taggedUsers;
     }
 
     public User chooseUser( ArrayList<User> friends){
@@ -101,7 +113,7 @@ return taggedUsers;
                 + taggedUsers +
                 "\nliked by: "
                 + likers +
-               "\n}";
+                "\n}";
 
 }
 }

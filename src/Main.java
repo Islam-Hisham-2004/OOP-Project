@@ -36,6 +36,8 @@ public class Main {
                         int option = input.nextInt();
                         switch (option) {
                             case 1:
+                                UserInteractions.createPost(loggeduser,loggeduser.listOfFriends,loggeduser.posts);
+
 
                                 break;
                             case 2:
@@ -56,6 +58,7 @@ public class Main {
 
                                 break;
                             case 8:
+                                UserInteractions.followPage(loggeduser.followedpages,loggeduser);
                                 break;
                             case 9:
 

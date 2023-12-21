@@ -3,6 +3,7 @@ public class PageSettings {
     private boolean allowTags;
     private boolean allowPublicPosts;
 
+
     // Constructor
     public PageSettings(){
         this.allowComments = true;
@@ -15,7 +16,13 @@ public class PageSettings {
         return allowComments;
     }
 
-    public void setAllowComments(boolean allowComments) {
+    public void setAllowComments(int choice) {
+        boolean allowComments = true;
+        if (choice == 1){
+            allowComments = true;
+        } else if (choice == 0) {
+            allowComments = false;
+        }
         this.allowComments = allowComments;
     }
 
@@ -23,7 +30,14 @@ public class PageSettings {
         return allowTags;
     }
 
-    public void setAllowTags(boolean allowTags) {
+    public void setAllowTags(int choice)
+    {
+        boolean allowTags = true;
+        if (choice == 1){
+            allowTags = true;
+        } else if (choice == 0) {
+            allowTags = false;
+        }
         this.allowTags = allowTags;
     }
 
@@ -31,7 +45,13 @@ public class PageSettings {
         return allowPublicPosts;
     }
 
-    public void setAllowPublicPosts(boolean allowPublicPosts) {
+    public void setAllowPublicPosts(int choice) {
+        boolean allowPublicPosts = true;
+        if (choice == 1){
+            allowPublicPosts = true;
+        } else if (choice == 0) {
+            allowPublicPosts = false;
+        }
         this.allowPublicPosts = allowPublicPosts;
-    }
+}
 }
