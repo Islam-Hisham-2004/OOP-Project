@@ -104,6 +104,7 @@ public class  Page {
      * manage page settings
      *
      *
+     *
      */
     public void managePageSettings() {
         System.out.println("enter 1 to allow and 0 to disallow :");

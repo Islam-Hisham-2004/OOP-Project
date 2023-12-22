@@ -22,121 +22,152 @@ public class UserInteractions implements Displayable {
     }
 
 
-    public static void createConversation(ArrayList<Conversation> conversations) {
+    public static void createConversation(ArrayList<Conversation> conversations, ArrayList<User> users, User user) {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the name of the new conversation:");
         String convName = input.nextLine();
-
-        System.out.println("Enter the participants' names, each name separated by a comma:");
-        String participantsInput = input.nextLine();
-        String[] partNames = participantsInput.split(",");
-
         ArrayList<User> participants = new ArrayList<>();
-        for (String participantName : partNames) {
-            participants.add(new User(participantName));
-        }
+        while (true) {
+            while (true) {
+                // Display list of users not in the current conversation
+                System.out.println("Available users not in the conversation:");
+                for (User availableUser : users) {
+                    if (!participants.contains(availableUser)) {
+                        System.out.println(availableUser.getUsername());
+                    }
 
-        Conversation newConversation = new Conversation(convName, participants);
-        conversations.add(newConversation);
+                }
+                String participantName = input.nextLine().trim();
 
-        System.out.println("New conversation created: " + newConversation.getConvname());
-    }
+                if (participantName.equalsIgnoreCase("done")) {
+                    break;
+                }
 
-    public static void sendMessage(ArrayList<Conversation> conversations) {
-        Scanner input = new Scanner(System.in);
-        if (conversations.isEmpty()) {
-            System.out.println("No conversations available. Please create a new conversation first.");
-            return;
-        }
+                User selectedUser = null;
+                for (User availableUser : users) {
+                    if (availableUser.getUsername().equalsIgnoreCase(participantName) && !participants.contains(availableUser)) {
+                        selectedUser = availableUser;
+                        break;
+                    }
+                }
 
-        System.out.println("Choose a conversation to write your message in:");
-        for (int i = 0; i < conversations.size(); i++) {
-            System.out.println((i + 1) + ". " + conversations.get(i).getConvname());
-        }
+                if (selectedUser != null) {
+                    participants.add(selectedUser);
+                    System.out.println(selectedUser.getUsername() + " added to participants.");
+                } else {
+                    System.out.println("Invalid user name or user already added. Please enter a valid name.");
+                }
 
-        int selectedConvIndex = Integer.parseInt(input.nextLine()) - 1;
-
-        if (selectedConvIndex >= 0 && selectedConvIndex < conversations.size()) {
-            Conversation selectedConv = conversations.get(selectedConvIndex);
-
-            System.out.println("Enter the name of the sender:");
-            String name = input.nextLine();
-            User sender = new User(name);
-
-            System.out.println("Enter your message:");
-            String msgContent = input.nextLine();
-
-            selectedConv.sendMessage(sender, msgContent);
-        } else {
-            System.out.println("Invalid conversation index.");
-        }
-    }
-
-
-    public static void createPage(ArrayList<Page> pages) {
-        try {
-            Page newPage = new Page();
-            newPage.setPageName();
-            newPage.setAbout();
-            newPage.managePageSettings();
-            if (newPage.getAbout() == null || newPage.getAbout().isEmpty()) {
-                throw new Exception("About cannot be null or empty.");
+                System.out.println("Do you want to add another participant? (yes/no):");
+                String addAnother = input.nextLine().trim().toLowerCase();
+                if (!addAnother.equals("yes")) {
+                    break;
+                }
             }
-            if (newPage.getPageName() == null || newPage.getPageName().isEmpty()) {
-                throw new Exception("About cannot be null or empty.");
+            Conversation newConversation = new Conversation(convName, participants);
+            for (User participant : participants) {
+                participant.addConversation(newConversation);
             }
-            System.out.println("Page created successfully!");
-            System.out.println("Page Name : " + newPage.getPageName());
-            pages.add(newPage);
 
+            // Add the new conversation to the list of conversations for the user
+            user.addConversation(newConversation);
 
-        } catch (Exception e) {
-            System.err.println("Error creating page: " + e.getMessage());
+            System.out.println("New conversation created: " + newConversation.getConvname());
         }
     }
+        public static void sendMessage (ArrayList < Conversation > conversations, User user) {
+            Scanner input = new Scanner(System.in);
+            if (conversations.isEmpty()) {
+                System.out.println("No conversations available. Please create a new conversation first.");
+                return;
+            }
 
-    public static void followPage(ArrayList<Page> pages, User user) {
-        Scanner input = new Scanner(System.in);
-        for (int i = 0; i < pages.size(); i++) {
-            System.out.println(i + 1 + "-" + pages.get(i).getPageName());
-        }
-        System.out.println("Enter the number that match your choice : ");
-        int choice = input.nextInt();
+            System.out.println("Choose a conversation to write your message in:");
+            for (int i = 0; i < conversations.size(); i++) {
+                System.out.println((i + 1) + ". " + conversations.get(i).getConvname());
+            }
 
-        for (int i = 0; i < pages.size(); i++) {
+            int selectedConvIndex = Integer.parseInt(input.nextLine()) - 1;
 
-            if (choice == pages.get(i).getPageID()) {
-                pages.get(i).addFollower(user);
+            if (selectedConvIndex >= 0 && selectedConvIndex < conversations.size()) {
+                Conversation selectedConv = conversations.get(selectedConvIndex);
+
+                System.out.println(" name of the sender:" + user.getUsername());
+
+                System.out.println("Enter your message:");
+                String msgContent = input.nextLine();
+
+                selectedConv.sendMessage(user, msgContent);
             } else {
-                System.out.println("Invalid choice");
-                followPage(pages, user);
+                System.out.println("Invalid conversation index.");
             }
         }
-    }
-
-    public static void createPost(User creator, ArrayList<User> friends, ArrayList<Post> posts) {
-
-        Post newPost = new Post();
-
-        newPost.setContent();
-        newPost.setPrivacyChoice();
-
-        Scanner input = new Scanner(System.in);
 
 
-        System.out.println("Tag users press y/n");
-        String c = input.nextLine();
+        public static void createPage (ArrayList < Page > pages) {
+            try {
+                Page newPage = new Page();
+                newPage.setPageName();
+                newPage.setAbout();
+                newPage.managePageSettings();
+                if (newPage.getAbout() == null || newPage.getAbout().isEmpty()) {
+                    throw new Exception("About cannot be null or empty.");
+                }
+                if (newPage.getPageName() == null || newPage.getPageName().isEmpty()) {
+                    throw new Exception("About cannot be null or empty.");
+                }
+                System.out.println("Page created successfully!");
+                System.out.println("Page Name : " + newPage.getPageName());
+                pages.add(newPage);
 
-        while (Objects.equals(c.toLowerCase(), "y")) {
-            newPost.setTaggedUsers(friends);
-            System.out.println("Tag another user press y/n");
-            c = input.nextLine();
+
+            } catch (Exception e) {
+                System.err.println("Error creating page: " + e.getMessage());
+            }
         }
 
-        posts.add(newPost);
+        public static void followPage (ArrayList < Page > pages, User user){
+            Scanner input = new Scanner(System.in);
+            for (int i = 0; i < pages.size(); i++) {
+                System.out.println(i + 1 + "-" + pages.get(i).getPageName());
+            }
+            System.out.println("Enter the number that match your choice : ");
+            int choice = input.nextInt();
+
+            for (int i = 0; i < pages.size(); i++) {
+
+                if (choice == pages.get(i).getPageID()) {
+                    pages.get(i).addFollower(user);
+                } else {
+                    System.out.println("Invalid choice");
+                    followPage(pages, user);
+                }
+            }
+        }
+
+        public static void createPost (User creator, ArrayList < User > friends, ArrayList < Post > posts){
+
+            Post newPost = new Post();
+
+            newPost.setContent();
+            newPost.setPrivacyChoice();
+
+            Scanner input = new Scanner(System.in);
+
+
+            System.out.println("Tag users press y/n");
+            String c = input.nextLine();
+
+            while (Objects.equals(c.toLowerCase(), "y")) {
+                newPost.setTaggedUsers(friends);
+                System.out.println("Tag another user press y/n");
+                c = input.nextLine();
+            }
+            posts.add(newPost);
+
+        }
+
 
     }
 
-
-}
 

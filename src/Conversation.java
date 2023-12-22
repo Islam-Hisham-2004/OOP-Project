@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Conversation implements Displayable, Serializable {
     private String convname;
+    private static int id=0;
     private List<Message> messages;
     private ArrayList<User> participants=new ArrayList<>();
     private LocalDateTime creationTime;
@@ -17,7 +18,9 @@ public class Conversation implements Displayable, Serializable {
         this.participants.addAll(participants) ;
         this.creationTime = LocalDateTime.now();
         this.messages=new ArrayList<>();
+        id++;
     }
+
     public String getConvname() {
         return convname;
     }
@@ -39,10 +42,13 @@ public class Conversation implements Displayable, Serializable {
 
     public void Conv_display() {
         System.out.println("Conversation{" +
-                "name='" + convname + '\'' +
-                ", participants=" + participants +
-                ", messages=" + messages +
-                '}');
+                "name='" + convname + '\''+"paricipants: ");
+        for (User user : participants) {
+            System.out.println(user.getUsername());
+        }
+
+        displayMessages();
+
     }
 
     public void displayMessages() {

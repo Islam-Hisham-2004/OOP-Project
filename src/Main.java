@@ -18,12 +18,12 @@ public class Main {
     ArrayList<User> users=new ArrayList<>();
     Scanner input = new Scanner(System.in);
     User loggeduser =new User();
+
         while (true) {
             System.out.println("Choose an option");
             System.out.println("1. Create Account");
             System.out.println("2. Login to an existing account");
             System.out.println("3.exit");
-
             int choice = input.nextInt();
             switch (choice) {
                 case 1:
@@ -31,6 +31,7 @@ public class Main {
                  break;
                 case 2:
                     loggeduser= new User(User.login(users));
+                    Feed feed=new Feed(loggeduser);
                     loop: while(true){
                     UserInteractions.display();
                         int option = input.nextInt();
@@ -49,13 +50,13 @@ public class Main {
                                 UserInteractions.createPage(loggeduser.pages);
                                 break;
                             case 5:
-                                UserInteractions.createConversation(loggeduser.conversations);
+                                UserInteractions.createConversation(loggeduser.conversations,loggeduser.listOfFriends,loggeduser);
                                 break;
                             case 6:
-                                UserInteractions.sendMessage(loggeduser.conversations);
+                                UserInteractions.sendMessage(loggeduser.conversations,loggeduser);
                                 break;
-                            case 7:
-
+                            case 7: feed.viewConversations();
+                                feed.viewSelectedConversation();
                                 break;
                             case 8:
                                 UserInteractions.followPage(loggeduser.followedpages,loggeduser);
@@ -72,41 +73,36 @@ public class Main {
                     System.out.println("exiting program ");
                     break;
 
-                default:
+            default:
                     System.out.println("Invalid choice. Please choose again.");
                     break;
             }
-        }
     }
-
-
-
-
-   /*         private void loadSystemDetails () {
-                try (ObjectInputStream usersStream = new ObjectInputStream(new FileInputStream(USERS_FILE));
-                     ObjectInputStream postsStream = new ObjectInputStream(new FileInputStream(POSTS_FILE));
-                     ObjectInputStream conversationsStream = new ObjectInputStream(new FileInputStream(CONVERSATIONS_FILE))) {
-                    users = (List<User>) usersStream.readObject();
-                    posts = (List<Post>) postsStream.readObject();
-                    conversations = (List<Conversation>) conversationsStream.readObject();
-                } catch (FileNotFoundException e) {
-                    System.out.println("Files not found. Creating new system.");
-                } catch (IOException | ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            private void saveSystemDetails () {
-                try (ObjectOutputStream usersStream = new ObjectOutputStream(new FileOutputStream(USERS_FILE));
-                     ObjectOutputStream postsStream = new ObjectOutputStream(new FileOutputStream(POSTS_FILE));
-                     ObjectOutputStream conversationsStream = new ObjectOutputStream(new FileOutputStream(CONVERSATIONS_FILE))) {
-                    usersStream.writeObject(users);
-                    postsStream.writeObject(posts);
-                    conversationsStream.writeObject(conversations);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }*/
 }
+
+
+    public static String convtostr(ArrayList<User> users) {
+        StringBuffer data = new StringBuffer();
+        for (int i=0;i< users.size();i++){
+            data.append users.get(i).getEmail()+","+users.get(i).getUsername()+","+users.get(i).getFirstName()+","+users.get(i).getLastName()+","+
+                    users.get(i).getPassword()+","+users.get(i).getGender()+","+users.get(i).getUserID()+"\n";}
+        return data;
+    }
+public static void write_data(String data,String path){
+
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
